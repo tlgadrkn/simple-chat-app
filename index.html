@@ -40,10 +40,13 @@
 
     <div class="container">
       <div class="card bg-light w-25">
-        <div id="messagesBody" class="card-body"></div>
+        <div id="messagesBody">
+          <ul class="list-group list-group-flush"></ul>
+        </div>
       </div>
     </div>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
