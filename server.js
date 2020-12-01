@@ -30,20 +30,25 @@ app.get('/messages', (req, res) => {
 });
 
 app.post('/messages', async (req, res) => {
-  const message = new Message(req.body);
+  try {
+    const message = new Message(req.body);
 
-  const savedMessage = await message.save();
-  console.log('message saved');
+    const savedMessage = await message.save();
+    console.log('message saved');
 
-  io.emit('message', req.body);
-  res.sendStatus(200);
+    io.emit('message', req.body);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
 });
 
 mongoose.connect(
   encodeURI(dbURI),
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err) => {
-    console.log('connection to db', err);
+    console.log('connection to db', !err ? 'ok' : err);
   }
 );
 
